@@ -20,7 +20,7 @@ class _SmallContainerState extends State<SmallContainer> {
     _loadPosition();
   }
 
-    Future _loadPosition() async {
+    Future _loadPosition() async {                          //load the saved position from the cache(shared preferences)
     final prefs = await SharedPreferences.getInstance();
     double? positionX = prefs.getDouble('positionX');
     double? positionY = prefs.getDouble('positionY');
@@ -32,7 +32,7 @@ class _SmallContainerState extends State<SmallContainer> {
   }
 
     @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {         //this normally does something but this is a simplified static version
     final List<Color> colors = [const Color(0xFF1B5E20).withOpacity(0.7), const Color(0xFF388E3C).withOpacity(0.7)];
         return Container(
       width: 100,

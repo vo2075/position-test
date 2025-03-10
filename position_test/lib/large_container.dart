@@ -21,7 +21,7 @@ class _LargeContainerState extends State<LargeContainer> {
    super.initState();
   }
 
-  Future _savePosition() async {
+  Future _savePosition() async {            //save the current position of the window to the cache(shared preferences)
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble('positionX', await windowManager.getPosition().then((value) => value.dx));
     await prefs.setDouble('positionY', await windowManager.getPosition().then((value) => value.dy));
@@ -29,7 +29,7 @@ class _LargeContainerState extends State<LargeContainer> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {           //this is normally a more complex widget with a lot of extra functions but these aren't needed for the movement of the window
   final List<Color> colors = [const Color(0xFF1B5E20).withOpacity(0.7), const Color(0xFF388E3C).withOpacity(0.7)];
     return Scaffold(
       backgroundColor: Colors.transparent,
@@ -50,7 +50,7 @@ class _LargeContainerState extends State<LargeContainer> {
                       right: 60,
                       top: 30,
                       child: GestureDetector(
-                        onPanStart: (details) async {
+                        onPanStart: (details) async {    //does get called
                           print('start pan');
                           widget.onDragStart();
                           final offset = details.globalPosition;
@@ -58,9 +58,9 @@ class _LargeContainerState extends State<LargeContainer> {
                           await windowManager.startDragging();
                           _savePosition();
                         },
-                        onPanEnd: (details) {
+                        onPanEnd: (details) {  //not being called
                           widget.onDragEnd();
-                          print('end pan ');
+                          print('end pan '); 
                         },
                         child: const Icon(Icons.open_with, size: 24, color: Colors.black),
                       ),

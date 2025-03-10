@@ -6,14 +6,14 @@ import 'small_container.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await windowManager.ensureInitialized();
+  await windowManager.ensureInitialized();          
 
-  await windowManager.setAsFrameless();
-  await windowManager.setHasShadow(false);
-  await windowManager.setBackgroundColor(Colors.transparent);
-  await windowManager.setSize(const Size(100, 100));
-  await windowManager.setPosition(const Offset(0, 0));
-  await windowManager.setAlwaysOnTop(true);
+  await windowManager.setAsFrameless();     //make the app frameless
+  await windowManager.setHasShadow(false);                              //remove the shadow 
+  await windowManager.setBackgroundColor(Colors.transparent);     //set backgroundcolor to transparent
+  await windowManager.setSize(const Size(100, 100));    //set the initial size of the window
+  await windowManager.setPosition(const Offset(0, 0));    //set the initial position of the window
+  await windowManager.setAlwaysOnTop(true);   //set the window to be always on top
   runApp(const MyApp());
 }
 
@@ -45,15 +45,15 @@ class _HomeScreenState extends State<HomeScreen> {
       super.initState();
     }
 
-  void _updateWindowSize(bool isHovering) async {
+  void _updateWindowSize(bool isHovering) async {               //change the size of the window if the mouse is hovering it
     if (isHovering) {
-      await windowManager.setSize(const Size(450, 300));
+      await windowManager.setSize(const Size(450, 300));  //large size
     } else {
-      await windowManager.setSize(const Size(100, 100));
+      await windowManager.setSize(const Size(100, 100));  //small size (initial size)
     }
   }
 
-  void _toggleDragging(bool dragging) async {
+  void _toggleDragging(bool dragging) async {               //change the size of the window to the small size if the window is being dragged
     setState(() {
       _isDragging = dragging;
     });
@@ -64,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
       double? positionY = position[1];
       await windowManager.setPosition(Offset(positionX! + 300, positionY! + 0));
     } else {
-      _updateWindowSize(_isHovering);
+      _updateWindowSize(_isHovering); 
     }
   }
 
-  Future _loadPosition() async {
+  Future _loadPosition() async {                          //load the saved position from the cache(shared preferences)
     final prefs = await SharedPreferences.getInstance();
     double? positionX = prefs.getDouble('positionX');
     double? positionY = prefs.getDouble('positionY');
@@ -83,13 +83,13 @@ class _HomeScreenState extends State<HomeScreen> {
        child:
             MouseRegion(
                 onEnter: (_) {
-                  if (!_isDragging) {
+                  if (!_isDragging) {       //change the size of the window if the mouse enters it
                     setState(() => _isHovering = true);
                     _updateWindowSize(true);
                   }
                 },
                 onExit: (_) {
-                  if (!_isDragging) {
+                  if (!_isDragging) {       //change the size of the window if the mouse leaves it
                     setState(() => _isHovering = false);
                     _updateWindowSize(false);
                   }
